@@ -16,14 +16,14 @@ impl TodoList {
     pub fn print(&self) {
         for (index, item) in self.list.iter().enumerate() {
             println!(
-                "{} [{}] - {}{}",
-                index,
-                match item.completed {
+                "{no} [{completed}] - {title}{description}",
+                no = index,
+                completed = match item.completed {
                     true => 'x',
                     false => ' ',
                 },
-                item.name,
-                match &item.description {
+                title = item.name,
+                description = match &item.description {
                     Some(desc) => format!(" {}", desc),
                     None => "".to_string(),
                 }
