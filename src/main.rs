@@ -45,12 +45,17 @@ impl TodoList {
             self.list[index].completed = ' ';
         }
     }
+
+    fn remove_task(&mut self, index: usize) {
+        self.list.remove(index);
+    }
 }
 
 enum Command {
     Get,
     Add(String),
     Done(usize),
+    Remove(usize),
 }
 
 fn main() {
@@ -66,6 +71,11 @@ fn main() {
                 .parse::<usize>()
                 .expect("error converting to int"),
         ),
+        "remove" => Command::Remove(
+            arguments[2]
+                .parse::<usize>()
+                .expect("error converting to int"),
+        ),
         _ => panic!("you must provide an accepted command"),
     };
 
@@ -77,6 +87,10 @@ fn main() {
         }
         Command::Done(index) => {
             todo_list.mark_done(index);
+            todo_list.print();
+        }
+        Command::Remove(index) => {
+            todo_list.remove_task(index);
             todo_list.print();
         }
     };
