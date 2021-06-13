@@ -1,22 +1,57 @@
-use anyhow::{Context, Result};
-use structopt::StructOpt;
-
-#[derive(StructOpt, Debug)]
-struct Cli {
-    pattern: String,
-    #[structopt(parse(from_os_str))]
-    path: std::path::PathBuf,
+use std::env;
+struct TodoItem {
+    name: String,
+    completed: char,
 }
 
-#[derive(Debug)]
-struct CustomError(String);
-
-fn main() -> Result<()> {
-    let args = Cli::from_args();
-    let content = std::fs::read_to_string(&args.path)
-        .with_context(|| format!("colud not read file `{}`", args.path.to_str().unwrap()))?;
-    for line in content.lines() {
-        println!("{}", line)
+impl TodoItem {
+    fn new(name: String) -> Self {
+        Self {
+            name,
+            completed: ' ',
+        }
     }
-    Ok(())
+}
+
+impl From<&str> for TodoItem {
+    fn from(name: &str) -> Self {
+        Self::new(name.to_string())
+    }
+}
+
+struct TodoList {
+    list: Vec<TodoItem>,
+}
+
+impl TodoList {
+    fn new() -> Self {
+        Self { list: vec![] }
+    }
+
+    fn add_to_list(&mut self, name: &str) {
+        self.list.push(name.into());
+    }
+
+    fn print(&self) {
+        for item in &self.list {
+            println!("[{}] - {}", item.completed, item.name)
+        }
+    }
+}
+
+fn main() {
+    let arguments: Vec<String> = env::args().collect();
+    let command = arguments[1].clone();
+    let mut todo_list = TodoList::new();
+    todo_list.add_to_list("Say hi to CJ");
+    todo_list.add_to_list("Say hi to ch");
+
+    if command == "get" {
+        todo_list.print();
+    } else if command == "add" {
+        let task = arguments[2].clone();
+        todo_list.add_to_list(&task);
+        todo_list.print();
+    }
+    println!("{:#?}", arguments);
 }
