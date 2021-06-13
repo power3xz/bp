@@ -39,7 +39,11 @@ impl TodoList {
     }
 
     fn mark_done(&mut self, index: usize) {
-        self.list[index].completed = 'x';
+        if self.list[index].completed == ' ' {
+            self.list[index].completed = 'x';
+        } else {
+            self.list[index].completed = ' ';
+        }
     }
 }
 
