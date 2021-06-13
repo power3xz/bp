@@ -16,12 +16,12 @@ impl From<Args> for Command {
             "done" => Command::Done(
                 arguments[2]
                     .parse::<usize>()
-                    .expect("error converting to int"),
+                    .expect("error converting to integer"),
             ),
             "remove" => Command::Remove(
                 arguments[2]
                     .parse::<usize>()
-                    .expect("error converting to int"),
+                    .expect("error converting to intger"),
             ),
             _ => panic!("you must provide an accepted command"),
         }
