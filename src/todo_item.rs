@@ -28,7 +28,7 @@ impl TodoItem {
                 None => "",
             },
             priority = match self.priority {
-                Some(p) => p.to_string(),
+                Some(n) => n.to_string(),
                 None => "".to_string(),
             }
         )
