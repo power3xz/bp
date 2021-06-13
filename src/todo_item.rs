@@ -1,6 +1,8 @@
 pub struct TodoItem {
     pub name: String,
     pub completed: bool,
+    pub description: Option<String>,
+    pub priority: Option<u8>,
 }
 
 impl TodoItem {
@@ -8,6 +10,8 @@ impl TodoItem {
         Self {
             name,
             completed: false,
+            description: None,
+            priority: None,
         }
     }
 }
