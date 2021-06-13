@@ -1,66 +1,10 @@
+mod command;
+mod todo_item;
+mod todo_list;
+
+use command::Command;
 use std::env;
-struct TodoItem {
-    name: String,
-    completed: bool,
-}
-
-impl TodoItem {
-    fn new(name: String) -> Self {
-        Self {
-            name,
-            completed: false,
-        }
-    }
-}
-
-impl From<&str> for TodoItem {
-    fn from(name: &str) -> Self {
-        Self::new(name.to_string())
-    }
-}
-
-struct TodoList {
-    list: Vec<TodoItem>,
-}
-
-impl TodoList {
-    fn new() -> Self {
-        Self { list: vec![] }
-    }
-
-    fn add_to_list(&mut self, task: &str) {
-        self.list.push(task.into());
-    }
-
-    fn print(&self) {
-        for (index, item) in self.list.iter().enumerate() {
-            println!(
-                "{} [{}] - {}",
-                index,
-                match item.completed {
-                    true => 'x',
-                    false => ' ',
-                },
-                item.name
-            )
-        }
-    }
-
-    fn mark_done(&mut self, index: usize) {
-        self.list[index].completed = !self.list[index].completed;
-    }
-
-    fn remove_task(&mut self, index: usize) {
-        self.list.remove(index);
-    }
-}
-
-enum Command {
-    Get,
-    Add(String),
-    Done(usize),
-    Remove(usize),
-}
+use todo_list::TodoList;
 
 fn main() {
     let arguments: Vec<String> = env::args().collect();
