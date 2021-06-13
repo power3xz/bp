@@ -16,13 +16,17 @@ impl TodoList {
     pub fn print(&self) {
         for (index, item) in self.list.iter().enumerate() {
             println!(
-                "{} [{}] - {}",
+                "{} [{}] - {}{}",
                 index,
                 match item.completed {
                     true => 'x',
                     false => ' ',
                 },
-                item.name
+                item.name,
+                match &item.description {
+                    Some(desc) => format!(" {}", desc),
+                    None => "".to_string(),
+                }
             )
         }
     }
@@ -33,5 +37,9 @@ impl TodoList {
 
     pub fn remove_task(&mut self, index: usize) {
         self.list.remove(index);
+    }
+
+    pub fn add_description(&mut self, index: usize, description: String) {
+        self.list[index].description = Some(description);
     }
 }

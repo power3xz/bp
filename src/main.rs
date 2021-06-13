@@ -18,6 +18,10 @@ fn main() {
             todo_list.add_to_list(&task);
             todo_list.print();
         }
+        Command::Describe(index, description) => {
+            todo_list.add_description(index, description);
+            todo_list.print();
+        }
         Command::Done(index) => {
             todo_list.mark_done(index);
             todo_list.print();

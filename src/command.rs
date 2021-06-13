@@ -5,6 +5,7 @@ pub enum Command {
     Add(String),
     Done(usize),
     Remove(usize),
+    Describe(usize, String),
 }
 
 impl From<Args> for Command {
@@ -22,6 +23,12 @@ impl From<Args> for Command {
                 arguments[2]
                     .parse::<usize>()
                     .expect("error converting to intger"),
+            ),
+            "describe" => Command::Describe(
+                arguments[2]
+                    .parse::<usize>()
+                    .expect("error converting to intger"),
+                arguments[3].clone(),
             ),
             _ => panic!("you must provide an accepted command"),
         }
