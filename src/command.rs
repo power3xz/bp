@@ -22,12 +22,12 @@ impl From<Args> for Command {
             "remove" => Command::Remove(
                 arguments[2]
                     .parse::<usize>()
-                    .expect("error converting to intger"),
+                    .expect("error converting to integer"),
             ),
             "describe" => Command::Describe(
                 arguments[2]
                     .parse::<usize>()
-                    .expect("error converting to intger"),
+                    .expect("error converting to integer"),
                 arguments[3].clone(),
             ),
             _ => panic!("you must provide an accepted command"),
