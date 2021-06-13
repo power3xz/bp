@@ -28,8 +28,8 @@ impl TodoList {
         Self { list: vec![] }
     }
 
-    fn add_to_list(&mut self, name: &str) {
-        self.list.push(name.into());
+    fn add_to_list(&mut self, task: &str) {
+        self.list.push(task.into());
     }
 
     fn print(&self) {
@@ -39,19 +39,28 @@ impl TodoList {
     }
 }
 
+enum Command {
+    Get,
+    Add(String),
+}
+
 fn main() {
     let arguments: Vec<String> = env::args().collect();
-    let command = arguments[1].clone();
     let mut todo_list = TodoList::new();
     todo_list.add_to_list("Say hi to CJ");
     todo_list.add_to_list("Say hi to ch");
+    let command = match arguments[1].as_str() {
+        "get" => Command::Get,
+        "add" => Command::Add(arguments[2].clone()),
+        _ => panic!("you must provide an accepted command"),
+    };
 
-    if command == "get" {
-        todo_list.print();
-    } else if command == "add" {
-        let task = arguments[2].clone();
-        todo_list.add_to_list(&task);
-        todo_list.print();
-    }
+    match command {
+        Command::Get => todo_list.print(),
+        Command::Add(task) => {
+            todo_list.add_to_list(&task);
+            todo_list.print();
+        }
+    };
     println!("{:#?}", arguments);
 }
