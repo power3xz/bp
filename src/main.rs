@@ -1,14 +1,14 @@
 use std::env;
 struct TodoItem {
     name: String,
-    completed: char,
+    completed: bool,
 }
 
 impl TodoItem {
     fn new(name: String) -> Self {
         Self {
             name,
-            completed: ' ',
+            completed: false,
         }
     }
 }
@@ -34,16 +34,20 @@ impl TodoList {
 
     fn print(&self) {
         for (index, item) in self.list.iter().enumerate() {
-            println!("{} [{}] - {}", index, item.completed, item.name)
+            println!(
+                "{} [{}] - {}",
+                index,
+                match item.completed {
+                    true => 'x',
+                    false => ' ',
+                },
+                item.name
+            )
         }
     }
 
     fn mark_done(&mut self, index: usize) {
-        if self.list[index].completed == ' ' {
-            self.list[index].completed = 'x';
-        } else {
-            self.list[index].completed = ' ';
-        }
+        self.list[index].completed = !self.list[index].completed;
     }
 
     fn remove_task(&mut self, index: usize) {
