@@ -23,12 +23,10 @@ fn save(todo_list: &TodoList, data_path: &Path) -> std::io::Result<()> {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let command = Command::from(env::args());
     let data_path = Path::new("data");
-    let mut todo_list;
-    if data_path.exists() {
-        todo_list = TodoList::from(data_path);
-    } else {
-        todo_list = TodoList::new();
-    }
+    let mut todo_list = match data_path.exists() {
+        true => TodoList::from(data_path),
+        false => TodoList::new(),
+    };
 
     match command {
         Command::Get => todo_list.print(),
