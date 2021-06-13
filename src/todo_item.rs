@@ -17,7 +17,7 @@ impl TodoItem {
 
     pub fn to_csv(&self) -> String {
         format!(
-            "{completed},{name},{description}",
+            "{completed},{name},{description},{priority}",
             completed = match self.completed {
                 true => "o",
                 false => "x",
@@ -26,6 +26,10 @@ impl TodoItem {
             description = match &self.description {
                 Some(desc) => desc,
                 None => "",
+            },
+            priority = match self.priority {
+                Some(p) => p.to_string(),
+                None => "".to_string(),
             }
         )
     }
