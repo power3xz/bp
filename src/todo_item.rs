@@ -14,6 +14,21 @@ impl TodoItem {
             priority: None,
         }
     }
+
+    pub fn to_csv(&self) -> String {
+        format!(
+            "{completed},{name},{description}",
+            completed = match self.completed {
+                true => "o",
+                false => "x",
+            },
+            name = self.name,
+            description = match &self.description {
+                Some(desc) => desc,
+                None => "",
+            }
+        )
+    }
 }
 
 impl From<&str> for TodoItem {
