@@ -19,19 +19,19 @@ fn do_command(
         Command::Get => (),
         Command::Add(task) => {
             todo_list.add_to_list(&task);
-            data_container.save(&todo_list)?;
+            data_container.save(todo_list)?;
         }
         Command::Describe(index, description) => {
             todo_list.add_description(index, description);
-            data_container.save(&todo_list)?;
+            data_container.save(todo_list)?;
         }
         Command::Done(index) => {
             todo_list.mark_done(index);
-            data_container.save(&todo_list)?;
+            data_container.save(todo_list)?;
         }
         Command::Remove(index) => {
             todo_list.remove_task(index);
-            data_container.save(&todo_list)?;
+            data_container.save(todo_list)?;
         }
     };
     todo_list.print();
