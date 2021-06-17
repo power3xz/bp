@@ -1,1 +1,3 @@
-pub mod to_csv;
+pub trait ToCSV {
+    fn to_csv(&self) -> String;
+}

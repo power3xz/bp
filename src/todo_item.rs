@@ -1,4 +1,4 @@
-use crate::traits::to_csv::ToCSV;
+use crate::traits::ToCSV;
 pub struct TodoItem {
     pub name: String,
     pub completed: bool,

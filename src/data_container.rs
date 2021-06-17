@@ -1,9 +1,9 @@
-use crate::todo_list::TodoList;
-use crate::traits::to_csv::ToCSV;
-
 use std::fs;
 use std::io::Write;
 use std::path::Path;
+
+use crate::todo_list::TodoList;
+use crate::traits::ToCSV;
 
 pub struct DataContainer<'a> {
     data_path: &'a Path,
@@ -19,11 +19,9 @@ impl<'a> DataContainer<'a> {
                 .write(true)
                 .truncate(true)
                 .open(self.data_path)?,
-            false => fs::File::create(self.data_path)?,
+            _ => panic!(""),
         };
-        for item in &todo_list.list {
-            f.write_all(format!("{}\n", item.to_csv()).as_bytes())?;
-        }
+        f.write_all(todo_list.to_csv().as_bytes())?;
         f.flush()?;
         Ok(())
     }

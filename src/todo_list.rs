@@ -2,6 +2,7 @@ use std::fs;
 use std::path::Path;
 
 use crate::todo_item::TodoItem;
+use crate::traits::ToCSV;
 
 pub struct TodoList {
     pub list: Vec<TodoItem>,
@@ -71,5 +72,15 @@ impl From<&Path> for TodoList {
             list.add_item_to_list(item);
         }
         list
+    }
+}
+
+impl ToCSV for TodoList {
+    fn to_csv(&self) -> String {
+        let mut csv = String::new();
+        self.list
+            .iter()
+            .for_each(|item| csv.push_str(format!("{}\n", item.to_csv()).as_str()));
+        csv
     }
 }
