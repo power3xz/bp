@@ -1,4 +1,6 @@
 use crate::todo_list::TodoList;
+use crate::traits::to_csv::ToCSV;
+
 use std::fs;
 use std::io::Write;
 use std::path::Path;

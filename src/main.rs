@@ -2,6 +2,7 @@ mod command;
 mod data_container;
 mod todo_item;
 mod todo_list;
+mod traits;
 
 use command::Command;
 use data_container::DataContainer;

@@ -1,3 +1,4 @@
+use crate::traits::to_csv::ToCSV;
 pub struct TodoItem {
     pub name: String,
     pub completed: bool,
@@ -14,8 +15,16 @@ impl TodoItem {
             priority: None,
         }
     }
+}
 
-    pub fn to_csv(&self) -> String {
+impl From<&str> for TodoItem {
+    fn from(name: &str) -> Self {
+        Self::new(name.to_string())
+    }
+}
+
+impl ToCSV for TodoItem {
+    fn to_csv(&self) -> String {
         format!(
             "{completed},{name},{description},{priority}",
             completed = match self.completed {
@@ -32,11 +41,5 @@ impl TodoItem {
                 None => "".to_string(),
             }
         )
-    }
-}
-
-impl From<&str> for TodoItem {
-    fn from(name: &str) -> Self {
-        Self::new(name.to_string())
     }
 }
