@@ -17,9 +17,9 @@ pub struct Task {
 }
 
 impl Task {
-    pub fn new(title: &str) -> Self {
+    pub fn new(id: u32, title: &str) -> Self {
         Self {
-            id: 0,
+            id,
             title: title.to_string(),
             status: Status::Normal,
             description: None,

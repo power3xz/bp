@@ -1,8 +1,9 @@
 use crate::task::Task;
 
 pub trait Repo {
-    fn save_task(&mut self, task: Task);
-    fn get_list(&self) -> &[Task];
+    fn generate_id(&self) -> u32;
+    fn save_task(&mut self, title: &str);
+    fn get_list(&self) -> Vec<&Task>;
 }
 
 #[derive(Debug)]
@@ -17,10 +18,16 @@ impl FileRepo {
 }
 
 impl Repo for FileRepo {
-    fn save_task(&mut self, task: Task) {
-        self.list.push(task);
+    fn generate_id(&self) -> u32 {
+        match self.list.iter().map(|t| t.id).max() {
+            Some(id) => id + 1,
+            _ => 0,
+        }
     }
-    fn get_list(&self) -> &[Task] {
-        &self.list[..]
+    fn save_task(&mut self, task: &str) {
+        self.list.push(Task::new(self.generate_id(), task));
+    }
+    fn get_list(&self) -> Vec<&Task> {
+        self.list.iter().collect()
     }
 }
