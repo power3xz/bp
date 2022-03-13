@@ -15,15 +15,10 @@ impl App {
         }
     }
     pub fn add(&mut self, title: &str) {
-        self.repo.save_task(title);
+        self.repo.save_task_from_title(title);
     }
 
     pub fn get_list(&self) -> Vec<&Task> {
-        self.repo
-            .get_list()
-            .iter()
-            .filter(|t| t.id > 1)
-            .copied()
-            .collect()
+        self.repo.get_list().to_vec()
     }
 }

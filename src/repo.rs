@@ -2,7 +2,8 @@ use crate::task::Task;
 
 pub trait Repo {
     fn generate_id(&self) -> u32;
-    fn save_task(&mut self, title: &str);
+    fn save_task(&mut self, task: Task);
+    fn save_task_from_title(&mut self, title: &str);
     fn get_list(&self) -> Vec<&Task>;
 }
 
@@ -24,8 +25,11 @@ impl Repo for FileRepo {
             _ => 0,
         }
     }
-    fn save_task(&mut self, task: &str) {
-        self.list.push(Task::new(self.generate_id(), task));
+    fn save_task(&mut self, task: Task) {
+        self.list.push(task);
+    }
+    fn save_task_from_title(&mut self, title: &str) {
+        self.save_task(Task::new(self.generate_id(), title));
     }
     fn get_list(&self) -> Vec<&Task> {
         self.list.iter().collect()
