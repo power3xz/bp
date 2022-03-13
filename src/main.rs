@@ -1,16 +1,11 @@
-use chrono::Utc;
-
-use crate::task::Task;
+use bp::App;
 
 mod bp;
 mod repo;
 mod task;
 
 fn main() {
-    let mut task = Task::new("테스트 입니다!");
-    println!("{:?}", task);
-    task.toggle();
-    println!("{:?}", task);
-    task.set_due(Utc::now());
-    println!("{:?}", task);
+    let mut app = App::new();
+    app.add("하이염!");
+    println!("{:?}", app);
 }

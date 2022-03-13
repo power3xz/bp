@@ -1,12 +1,18 @@
-use crate::{repo::Repo, task::Task};
+use crate::{
+    repo::{FileRepo, Repo},
+    task::Task,
+};
 
-pub struct BP {
-    pub repo: Repo,
+#[derive(Debug)]
+pub struct App {
+    pub repo: FileRepo,
 }
 
-impl BP {
+impl App {
     pub fn new() -> Self {
-        Self { repo: Repo }
+        Self {
+            repo: FileRepo::new(),
+        }
     }
     pub fn add(&mut self, title: &str) {
         self.repo.save_task(Task::new(title));
