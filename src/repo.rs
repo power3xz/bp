@@ -7,6 +7,7 @@ pub trait Repo {
     fn save_task(&mut self, task: Task);
     fn save_task_from_title(&mut self, title: &str);
     fn get_list(&self) -> Vec<&Task>;
+    fn get(&self, id: u32) -> Option<&Task>;
 }
 
 #[derive(Debug)]
@@ -45,5 +46,8 @@ impl Repo for FileRepo {
     }
     fn get_list(&self) -> Vec<&Task> {
         self.list.iter().collect()
+    }
+    fn get(&self, id: u32) -> Option<&Task> {
+        self.list.iter().find(|&t| t.id == id)
     }
 }

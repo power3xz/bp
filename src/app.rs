@@ -21,4 +21,8 @@ impl App {
     pub fn get_list(&self) -> Vec<&Task> {
         self.repo.get_list().to_vec()
     }
+
+    pub fn get(&self, id: u32) -> Option<&Task> {
+        self.repo.get(id)
+    }
 }
