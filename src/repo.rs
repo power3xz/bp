@@ -1,5 +1,7 @@
 use std::fmt::{Debug, Display};
 
+use chrono::{DateTime, Utc};
+
 use crate::task::Task;
 
 pub trait Repo {
@@ -10,6 +12,10 @@ pub trait Repo {
     fn get(&self, id: u32) -> Option<&Task>;
     fn remove(&mut self, id: u32);
     fn update_title(&mut self, id: u32, title: &str);
+    fn update_description(&mut self, id: u32, description: &str);
+    fn update_due(&mut self, id: u32, due: DateTime<Utc>);
+    fn toggle_status(&mut self, id: u32);
+    fn update_priority(&mut self, id: u32, priority: u8);
 }
 
 #[derive(Debug)]
@@ -53,15 +59,39 @@ impl Repo for MemoryRepo {
         self.list.iter().find(|&t| t.id == id)
     }
 
-    fn update_title(&mut self, id: u32, title: &str) {
-        if let Some(index) = self.list.iter().position(|t| t.id == id) {
-            self.list[index].title = title.to_string();
-        }
-    }
-
     fn remove(&mut self, id: u32) {
         if let Some(index) = self.list.iter().position(|t| t.id == id) {
             self.list.remove(index);
+        }
+    }
+
+    fn update_title(&mut self, id: u32, title: &str) {
+        if let Some(index) = self.list.iter().position(|t| t.id == id) {
+            self.list[index].set_title(title);
+        }
+    }
+
+    fn update_description(&mut self, id: u32, description: &str) {
+        if let Some(index) = self.list.iter().position(|t| t.id == id) {
+            self.list[index].set_description(description);
+        }
+    }
+
+    fn update_due(&mut self, id: u32, due: DateTime<Utc>) {
+        if let Some(index) = self.list.iter().position(|t| t.id == id) {
+            self.list[index].set_due(due);
+        }
+    }
+
+    fn toggle_status(&mut self, id: u32) {
+        if let Some(index) = self.list.iter().position(|t| t.id == id) {
+            self.list[index].toggle();
+        }
+    }
+
+    fn update_priority(&mut self, id: u32, priority: u8) {
+        if let Some(index) = self.list.iter().position(|t| t.id == id) {
+            self.list[index].set_priority(priority);
         }
     }
 }

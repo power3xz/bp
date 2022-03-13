@@ -1,3 +1,5 @@
+use chrono::{DateTime, Utc};
+
 use crate::{
     repo::{MemoryRepo, Repo},
     task::Task,
@@ -32,5 +34,21 @@ impl App {
 
     pub fn update_title(&mut self, id: u32, title: &str) {
         self.repo.update_title(id, title)
+    }
+
+    pub fn update_description(&mut self, id: u32, description: &str) {
+        self.repo.update_description(id, description)
+    }
+
+    pub fn update_due(&mut self, id: u32, due: DateTime<Utc>) {
+        self.repo.update_due(id, due);
+    }
+
+    pub fn toggle_status(&mut self, id: u32) {
+        self.repo.toggle_status(id);
+    }
+
+    pub fn update_priority(&mut self, id: u32, priority: u8) {
+        self.repo.update_priority(id, priority)
     }
 }

@@ -18,4 +18,7 @@ fn main() {
     println!("{:?}", app.get(1));
     app.remove(1);
     println!("{:?}", app.get(1));
+    app.update_priority(2, 2);
+    app.toggle_status(2);
+    println!("{:?}", app.get(2));
 }
