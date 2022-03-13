@@ -11,11 +11,11 @@ pub trait Repo {
 }
 
 #[derive(Debug)]
-pub struct FileRepo {
+pub struct MemoryRepo {
     list: Vec<Task>,
 }
 
-impl FileRepo {
+impl MemoryRepo {
     pub fn new() -> Self {
         Self { list: vec![] }
     }
@@ -31,7 +31,7 @@ impl Debug for dyn Repo {
     }
 }
 
-impl Repo for FileRepo {
+impl Repo for MemoryRepo {
     fn generate_id(&self) -> u32 {
         match self.list.iter().map(|t| t.id).max() {
             Some(id) => id + 1,
