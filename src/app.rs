@@ -5,13 +5,13 @@ use crate::{
 
 #[derive(Debug)]
 pub struct App {
-    repo: FileRepo,
+    repo: Box<dyn Repo>,
 }
 
 impl App {
     pub fn new() -> Self {
         Self {
-            repo: FileRepo::new(),
+            repo: Box::new(FileRepo::new()),
         }
     }
     pub fn add(&mut self, title: &str) {

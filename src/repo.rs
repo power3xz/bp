@@ -1,3 +1,5 @@
+use std::fmt::{Debug, Display};
+
 use crate::task::Task;
 
 pub trait Repo {
@@ -15,6 +17,16 @@ pub struct FileRepo {
 impl FileRepo {
     pub fn new() -> Self {
         Self { list: vec![] }
+    }
+}
+impl Display for dyn Repo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(format!("{:?}", self.get_list()).as_str())
+    }
+}
+impl Debug for dyn Repo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self::Display::fmt(self, f)
     }
 }
 
