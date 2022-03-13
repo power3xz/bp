@@ -14,5 +14,6 @@ fn main() {
     for task in app.get_list() {
         println!("{:?}", task);
     }
+    app.update_title(1, "하이지요");
     println!("{:?}", app.get(1));
 }

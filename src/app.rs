@@ -25,4 +25,8 @@ impl App {
     pub fn get(&self, id: u32) -> Option<&Task> {
         self.repo.get(id)
     }
+
+    pub fn update_title(&mut self, id: u32, title: &str) {
+        self.repo.update_title(id, title)
+    }
 }
