@@ -1,5 +1,5 @@
 use crate::{
-    repo::{FileRepo, Repo},
+    repo::{MemoryRepo, Repo},
     task::Task,
 };
 
@@ -11,7 +11,7 @@ pub struct App {
 impl App {
     pub fn new() -> Self {
         Self {
-            repo: Box::new(FileRepo::new()),
+            repo: Box::new(MemoryRepo::new()),
         }
     }
     pub fn add(&mut self, title: &str) {
