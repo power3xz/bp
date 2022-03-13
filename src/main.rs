@@ -16,4 +16,6 @@ fn main() {
     }
     app.update_title(1, "하이지요");
     println!("{:?}", app.get(1));
+    app.remove(1);
+    println!("{:?}", app.get(1));
 }

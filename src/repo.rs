@@ -8,6 +8,7 @@ pub trait Repo {
     fn save_task_from_title(&mut self, title: &str);
     fn get_list(&self) -> Vec<&Task>;
     fn get(&self, id: u32) -> Option<&Task>;
+    fn remove(&mut self, id: u32);
     fn update_title(&mut self, id: u32, title: &str);
 }
 
@@ -55,6 +56,12 @@ impl Repo for MemoryRepo {
     fn update_title(&mut self, id: u32, title: &str) {
         if let Some(index) = self.list.iter().position(|t| t.id == id) {
             self.list[index].title = title.to_string();
+        }
+    }
+
+    fn remove(&mut self, id: u32) {
+        if let Some(index) = self.list.iter().position(|t| t.id == id) {
+            self.list.remove(index);
         }
     }
 }

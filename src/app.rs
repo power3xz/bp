@@ -26,6 +26,10 @@ impl App {
         self.repo.get(id)
     }
 
+    pub fn remove(&mut self, id: u32) {
+        self.repo.remove(id)
+    }
+
     pub fn update_title(&mut self, id: u32, title: &str) {
         self.repo.update_title(id, title)
     }
