@@ -5,7 +5,7 @@ use crate::{
 
 #[derive(Debug)]
 pub struct App {
-    pub repo: FileRepo,
+    repo: FileRepo,
 }
 
 impl App {
@@ -16,5 +16,9 @@ impl App {
     }
     pub fn add(&mut self, title: &str) {
         self.repo.save_task(Task::new(title));
+    }
+
+    pub fn get_list(&self) -> &[Task] {
+        self.repo.get_list()
     }
 }
